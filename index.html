@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator</title>
+  <style>
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #FFFFFF;
+}
+
+.calculator {
+  width: 200px;
+  background-color: lightgrey;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.display {
+  background-color: black;
+  color: white;
+  text-align: right;
+  padding: 20px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.button {
+  width: 25%;
+  padding: 20px;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  color: white;
+  cursor: pointer;
+}
+
+.clear {
+  background-color: #e74c3c;
+}
+
+.operator, .equal {
+  background-color: grey;
+}
+
+.number {
+  background-color: grey;
+}
+</style>
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="calculator">
+    <div class="display" id="display">0</div>
+    <button class="button clear" onclick="clearDisplay()">C</button>
+    <button class="button operator" onclick="addOperator('/')">/</button>
+    <button class="button operator" onclick="addOperator('*')">×</button>
+    <button class="button number" onclick="addToDisplay('7')">7</button>
+    <button class="button number" onclick="addToDisplay('8')">8</button>
+    <button class="button number" onclick="addToDisplay('9')">9</button>
+    <button class="button operator" onclick="addOperator('-')">-</button>
+    <button class="button number" onclick="addToDisplay('4')">4</button>
+    <button class="button number" onclick="addToDisplay('5')">5</button>
+    <button class="button number" onclick="addToDisplay('6')">6</button>
+    <button class="button operator" onclick="addOperator('+')">+</button>
+    <button class="button number" onclick="addToDisplay('1')">1</button>
+    <button class="button number" onclick="addToDisplay('2')">2</button>
+    <button class="button number" onclick="addToDisplay('3')">3</button>
+    <button class="button equal" onclick="calculate()">=</button>
+    <button class="button number" onclick="addToDisplay('0')">0</button>
+    <button class="button number" onclick="addToDisplay('.')">.</button>
+  </div>
+
+  <script>
+    let displayValue = '0';
+
+    function updateDisplay(value) {
+      document.getElementById('display').innerText = value;
+    }
+
+    function clearDisplay() {
+      displayValue = '0';
+      updateDisplay(displayValue);
+    }
+
+    function addToDisplay(value) {
+      if (displayValue === '0') {
+        displayValue = value;
+      } else {
+        displayValue += value;
+      }
+      updateDisplay(displayValue);
+    }
+
+    function addOperator(operator) {
+      const lastChar = displayValue.slice(-1);
+      if (!isNaN(lastChar) || lastChar === '.') {
+        displayValue += operator;
+      }
+      updateDisplay(displayValue);
+    }
+
+    function calculate() {
+      try {
+        displayValue = eval(displayValue).toString();
+      } catch (error) {
+        displayValue = 'Error';
+      }
+      updateDisplay(displayValue);
+    }
+  </script>
+</body>
+</html>
